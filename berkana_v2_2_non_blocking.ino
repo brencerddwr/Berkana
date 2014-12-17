@@ -491,12 +491,20 @@ void colorBars()
 	// Helpful for diagnosing if you've mis-wired which is which.
 
 	showAnalogRGB( CRGB::Red );
+	fill_solid ( &(leds[0]), NUM_LEDS, CRGB::Red);
+	FastLED.show();
 	delay(500);
 	showAnalogRGB( CRGB::Green );
+	fill_solid ( &(leds[0]), NUM_LEDS, CRGB::Green);
+	FastLED.show();
 	delay(500);
 	showAnalogRGB( CRGB::Blue );
+	fill_solid ( &(leds[0]), NUM_LEDS, CRGB::Blue);
+	FastLED.show();
 	delay(500);
 	showAnalogRGB( CRGB::Black );
+	fill_solid ( &(leds[0]), NUM_LEDS, CRGB::Black);
+	FastLED.show();
 	delay(500);
 }
 void chase_sub() {
