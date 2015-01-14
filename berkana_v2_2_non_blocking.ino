@@ -118,7 +118,7 @@ PROGMEM unsigned int colors[][2] = {
 
 // main menu
 
-char* main_menu[] = {"Kelley Yellow","Kelley Red","Kelley Blue","Kelley Green","Kelley Purple","Kelley White","Kelley dial","Rainbow chase", "Rainbow cycle", "Frame Delay", "Brightness"};
+const char* main_menu[] = {"Kelley Yellow","Kelley Red","Kelley Blue","Kelley Green","Kelley Purple","Kelley White","Kelley dial","Rainbow chase", "Rainbow cycle", "Frame Delay", "Brightness"};
 int menu_count = 11;
 
 const int analogInPin = A0;  // Analog input pin that the potentiometer is attached to
