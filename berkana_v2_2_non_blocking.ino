@@ -2,6 +2,9 @@
 //LED sign for our home using RadioShack Tricolor LED Strip
 //  By Richard Bailey
 //
+//  Version 2.3.0.1
+// update improve commenting of code and remove commented code that is not needed or providing documentation of how to do something.
+//
 // Version 2.2.3
 // User interface fixed for now, brightness implemented.
 // Future updates from this point will most likely to clean up the code and reduce size.
@@ -92,7 +95,7 @@ uint8_t low_intensity = high_intensity * .33;
 // This is an array of leds.  One item for each led in your strip.
 CRGB leds[NUM_LEDS];
 
-// predefined color arrays
+// predefined color arrays for sign (hue,saturation)
 PROGMEM unsigned int colors[][2] = {
 	{
 	64,255                                    }
@@ -126,15 +129,15 @@ int sensorValue = 0;        // value read from the pot
 
 //initialize variables
 
-int x; // variable for first group, counts down and wraps around.
-int y; // variable for second group, counts up.
+int x; // variable for first group in Kelley Pattern, counts down and wraps around.
+int y; // variable for second groupin Kelley Pattern, counts up.
 unsigned int led_color[2];  //array that holds the current color codes for the LEDS
 int c = 0;
 long last_millis;
 long current_millis;
 int frame_count;
 static uint8_t hue;
-bool kpattern_selected = true;
+bool kpattern_selected = true;  //set initial pattern to kelley pattern
 bool chase_selected = false;
 bool cycle_selected = false;
 bool idle = true;
@@ -160,20 +163,16 @@ void setup() {
 
 	//	Serial.begin(115200);
 
-	// sanity check delay - allows reprogramming if accidently blowing power w/leds
+	// sanity check delay - allows reprogramming if accidentally blowing power w/leds
 	delay(3000);
 
 	// set up the LCD's number of columns and rows:
 	lcd.begin(16, 2);
-	// Print a message to the LCD. We track how long it takes since
-	// this library has been optimized a bit and we're proud of it :)
-	//	int time = millis();
-	lcd.print(F("Berkana"));
-	//	time = millis() - time;
-	//	Serial.print(F("Took "));
-	//	Serial.print(time);
-	//	Serial.println(F(" ms"));
+	// set back light color on LCD display
 	lcd.setBacklight(WHITE);
+	// Print a message to the LCD.
+	lcd.print(F("Berkana"));
+	
 
 
 
@@ -189,7 +188,7 @@ void setup() {
 	pinMode(GREENPIN, OUTPUT);
 	pinMode(BLUEPIN,  OUTPUT);
 
-	// Flash the "hello" color sequence: R, G, B, black.
+	// Flash the "hello" color sequence: R, G, B, black on analog LED of color picker
 	colorBars();
 	last_millis=millis();
 	last_button=millis();
@@ -384,7 +383,7 @@ void kelley_pattern() {
 			frame_count++;
 			return;
 		}
-		if (frame_count == 1 ) {
+		/* if (frame_count == 1 ) {
 			kelley_frame();
 			return;
 
@@ -418,9 +417,9 @@ void kelley_pattern() {
 		if (frame_count == 7) {
 			kelley_frame();
 			return;
-		}
+		} */
 
-		if (frame_count == 8) {
+		if (frame_count >0 && frame_count <= 8) {
 			kelley_frame();
 			return;
 		}
@@ -432,11 +431,11 @@ void kelley_pattern() {
 			return;
 		}
 
-		if (frame_count == 10){
+		if (frame_count >= 10 && frame_count <= 14){
 			kelley_blank();
 			return;
 		}
-		if (frame_count == 11){
+		/* if (frame_count == 11){
 			kelley_blank();
 			return;
 		}
@@ -452,7 +451,7 @@ void kelley_pattern() {
 			kelley_blank();
 			frame_count = 0;
 			return;
-		}
+		} */
 
 
 	}
@@ -489,6 +488,7 @@ void colorBars()
 {
 	// colorBars: flashes Red, then Green, then Blue, then Black.
 	// Helpful for diagnosing if you've mis-wired which is which.
+	// using as a hello world for the analog LED and system in general
 
 	showAnalogRGB( CRGB::Red );
 	fill_solid ( &(leds[0]), NUM_LEDS, CRGB::Red);
