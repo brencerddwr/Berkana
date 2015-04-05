@@ -96,7 +96,7 @@ uint8_t low_intensity = high_intensity * .33;
 CRGB leds[NUM_LEDS];
 
 // predefined color arrays for sign (hue,saturation)
-PROGMEM unsigned int colors[][2] = {
+PROGMEM const unsigned int colors[][2] = {
 	{
 	64,255                                    }
 	, // yellow
