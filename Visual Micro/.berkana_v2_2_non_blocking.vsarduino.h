@@ -10,7 +10,7 @@
 
 #define __AVR_ATmega328p__
 #define __AVR_ATmega328P__
-#define ARDUINO 106
+#define ARDUINO 161
 #define ARDUINO_MAIN
 #define F_CPU 16000000L
 #define __AVR__
@@ -27,6 +27,6 @@ void chase_sub();
 void cycle_sub();
 void choice_update();
 
-#include "C:\Program Files (x86)\Arduino\hardware\arduino\variants\standard\pins_arduino.h" 
-#include "C:\Program Files (x86)\Arduino\hardware\arduino\cores\arduino\arduino.h"
-#include "D:\Users\Richard\Documents\Arduino\berkana_v2_2_non_blocking\berkana_v2_2_non_blocking.ino"
+#include "C:\Program Files (x86)\Arduino\hardware\arduino\avr\variants\standard\pins_arduino.h" 
+#include "C:\Program Files (x86)\Arduino\hardware\arduino\avr\cores\arduino\arduino.h"
+#include <berkana_v2_2_non_blocking.ino>
