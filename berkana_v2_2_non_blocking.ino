@@ -2,6 +2,9 @@
 //LED sign for our home using RadioShack Tricolor LED Strip
 //  By Richard Bailey
 //
+// Version 3.0.0.1
+//  begin of complete rebuild of code to improve performance
+//
 //  Version 2.3.0.1
 // update improve commenting of code and remove commented code that is not needed or providing documentation of how to do something.
 //
@@ -92,6 +95,7 @@ long frame_delay = 50;
 uint8_t high_intensity = 128;
 uint8_t med_intensity = high_intensity * .66;
 uint8_t low_intensity = high_intensity * .33;
+
 // This is an array of leds.  One item for each led in your strip.
 CRGB leds[NUM_LEDS];
 
@@ -152,7 +156,11 @@ long last_button;
 // However, you can connect other I2C sensors to the I2C bus and share
 // the I2C bus.
 Adafruit_RGBLCDShield lcd = Adafruit_RGBLCDShield();
-
+//
+// arrays for Kelley Pattern
+//
+int kelley_bottom[6]{1,0,11,10,9,8};
+	int kelley_top[6]{2,3,4,5,6,7};
 // ***********************************************************************************************************
 // *
 // *                            Power Up Init.
@@ -215,8 +223,7 @@ void loop()
 	// set the cursor to column 0, line 1
 	// (note: line 1 is the second row, since counting begins with 0):
 	lcd.setCursor(0, 1);
-	// print the number of seconds since reset:
-	//lcd.print("Active: ");
+	//print active menu on display
 	lcd.print(main_menu[menu_active]);
 	//	  menu_previous = menu_current;
 	if ((millis()-last_button) > 10000 && menu_active <9){
@@ -242,10 +249,9 @@ void loop()
 				}
 				last_button=millis();
 				idle = false;
-				//lcd.print("Menu: ");
+				//display current menu on lcd
 				lcd.print(main_menu[menu_current]);
 				//			lcd.setBacklight(GREEN);
-				//lcd.print("up");
 			}
 			if (buttons & BUTTON_DOWN) {
 				if (menu_current == menu_count-1) {
@@ -260,9 +266,7 @@ void loop()
 				lcd.print(main_menu[menu_current]);
 			}
 			if (menu_active==9){
-				//lcd.clear();
 				lcd.setCursor(0,0);
-				//lcd.print(frame_delay);
 				if (buttons & BUTTON_LEFT) {
 					//lcd.setCursor(0,1);
 					if (frame_delay > 50) {
@@ -314,9 +318,6 @@ void loop()
 				lcd.clear();
 				lcd.setCursor(0,0);
 				lcd.print("Berkana");
-				//lcd.setCursor(0,0);
-				//lcd.print("Menu: ");
-				//lcd.print(main_menu[menu_current]);
 				
 			}
 		}
@@ -383,42 +384,6 @@ void kelley_pattern() {
 			frame_count++;
 			return;
 		}
-		/* if (frame_count == 1 ) {
-			kelley_frame();
-			return;
-
-		}
-
-		if (frame_count == 2){
-			kelley_frame();
-			return;
-		}
-
-		if (frame_count == 3) {
-			kelley_frame();
-			return;
-		}
-
-		if (frame_count == 4) {
-			kelley_frame();
-			return;
-		}
-
-		if (frame_count == 5) {
-			kelley_frame();
-			return;
-		}
-
-		if (frame_count == 6) {
-			kelley_frame();
-			return;
-		}
-
-		if (frame_count == 7) {
-			kelley_frame();
-			return;
-		} */
-
 		if (frame_count >0 && frame_count <= 8) {
 			kelley_frame();
 			return;
@@ -435,25 +400,6 @@ void kelley_pattern() {
 			kelley_blank();
 			return;
 		}
-		/* if (frame_count == 11){
-			kelley_blank();
-			return;
-		}
-		if (frame_count == 12){
-			kelley_blank();
-			return;
-		}
-		if (frame_count == 13){
-			kelley_blank();
-			return;
-		}
-		if (frame_count == 14){
-			kelley_blank();
-			frame_count = 0;
-			return;
-		} */
-
-
 	}
 }
 void kelley_frame() {
@@ -534,7 +480,6 @@ void choice_update()
 		chase_selected = false;
 		cycle_selected = false;
 		kelley_menu_selection = menu_active;
-		// Serial.println(kelley_menu_selection);
 		
 	}
 	if (menu_active == 7) {
