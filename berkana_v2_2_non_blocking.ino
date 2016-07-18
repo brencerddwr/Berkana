@@ -93,7 +93,7 @@ uint8_t low_intensity = high_intensity * .33;
 CRGB leds[NUM_LEDS];
 
 // predefined color arrays
-PROGMEM unsigned int colors[][2] = {
+unsigned int colors[][2] = {
 	{
 	64,255                                    }
 	, // yellow
@@ -194,8 +194,8 @@ void setup() {
 	last_millis=millis();
 	last_button=millis();
 	frame_count=0;
-	led_color[0] = pgm_read_dword_near(&colors[c][0]);
-	led_color[1] = pgm_read_dword_near(&colors[c][1]);
+	led_color[0] = colors[c][0];
+	led_color[1] = colors[c][1];
 
 }
 
@@ -365,8 +365,8 @@ void showAnalogRGB( const CRGB& rgb)
 void kelley_pattern() {
 	// subroutine to display kelley pattern in selected color
 	if (kelley_menu_selection < 6) {
-		led_color[0] = pgm_read_dword_near(&colors[kelley_menu_selection][0]);
-		led_color[1] = pgm_read_dword_near(&colors[kelley_menu_selection][1]);
+		led_color[0] = colors[kelley_menu_selection][0];
+		led_color[1] = colors[kelley_menu_selection][1];
 	};
 
 	if (kelley_menu_selection == 6){
