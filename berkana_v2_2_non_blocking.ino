@@ -158,7 +158,7 @@ Adafruit_RGBLCDShield lcd = Adafruit_RGBLCDShield();
 // ***********************************************************************************************************
 void setup() {
 
-	//	Serial.begin(115200);
+		// Serial.begin(9600);
 
 	// sanity check delay - allows reprogramming if accidently blowing power w/leds
 	delay(3000);
@@ -239,7 +239,7 @@ void loop()
 					menu_current = menu_count-1;
 				}
 				else {
-					menu_current = menu_current--;
+					menu_current = menu_current-1;
 				}
 				last_button=millis();
 				idle = false;
@@ -253,7 +253,7 @@ void loop()
 					menu_current = 0;
 				}
 				else {
-					menu_current=menu_current++;
+					menu_current=menu_current+1;
 				}
 				last_button=millis();
 				idle = false;
@@ -322,7 +322,6 @@ void loop()
 			}
 		}
 	}
-	
 	choice_update();
 
 	current_millis=millis();
